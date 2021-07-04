@@ -1,0 +1,43 @@
+﻿初始化使能电机
+FF AA 08 02 01 01 00 00 00 00 CRC	//所有电机使能
+
+基本动作控制：
+FF AA 08 02 04 01 00 00 00 00 CRC	//停止
+FF AA 08 02 04 01 C8 00 00 00 CRC	//前进
+FF AA 08 02 04 02 C8 00 00 00 CRC	//后退
+FF AA 08 02 04 03 C8 00 00 00 CRC	//右转
+FF AA 08 02 04 04 C8 00 00 00 CRC	//左转
+FF AA 08 02 04 05 00 00 00 00 CRC	//掉头
+
+
+//给出停靠点位置
+FF AA 08 02 12 tk 01 00 00 00 CRC	//掉头
+
+
+图像处理结果（偏差值）：
+FF AA 08 02 05 00 SS SS xx xx CRC 	//SSSS 偏差值 
+FF AA 08 02 05 01 xx xx xx xx CRC 	//十字路口 
+FF AA 08 02 05 02 yy xx xx xx CRC 	//T路口 yy: 1 右T;  0 左T 
+FF AA 08 02 05 03 xx xx xx xx CRC 	//红色停靠点 
+
+
+（去）使能巡线：
+FF AA 08 02 03 01 00 00 00 00 CRC	//使能巡线	
+FF AA 08 02 03 00 00 00 00 00 CRC	//禁用巡线，手动控制
+注：开启巡线后，禁用左转右转后退，只能下发前进后退指令
+
+
+
+
+机器人信息上报：
+FF AA 08 02 02 01 xx xx 00 00 CRC	//电池电压（mv）
+//FF AA 08 02 02 02 xx 00 00 00 CRC	//机器人姿态，暂时不加
+FF AA 08 00 02 03 yy xx yy yy CRC	//机器人里程位置
+FF AA 08 00 02 04 xx xx xx xx CRC	//机器人偏差值
+FF AA 08 00 02 05 xx xx xx xx CRC	//机器人历程及误差
+
+
+
+一键充电指令：
+FF AA 08 02 11 00 xx xx xx xx CRC
+
